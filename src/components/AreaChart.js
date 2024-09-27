@@ -80,6 +80,13 @@ const AreaChart = () => {
         }
       };
 
+      const formatDate = (date) => {
+        const options = { year: "numeric", month: "short" };
+        return new Intl.DateTimeFormat("en-US", options)
+          .format(date)
+          .replace(" ", "-");
+      };
+
       const chart = Plot.plot({
         marks: [
           Plot.areaY(flattenedData, {
@@ -93,11 +100,21 @@ const AreaChart = () => {
           legend: true,
         },
         x: {
-          label: "Date",
+          tickFormat: formatDate,
+          ticks: "month",
+          tickSize: 0,
         },
         y: {
-          label: "Volume in Millions",
+          label: "DEX Volume",
           tickFormat: formatVolume,
+          tickSize: 0,
+          labelAnchor: "center",
+          labelArrow: false,
+          labelOffset: 70,
+        },
+        marginLeft: 70,
+        style: {
+          fontSize: "14px",
         },
       });
 
