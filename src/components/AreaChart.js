@@ -98,6 +98,7 @@ const AreaChart = () => {
         ],
         color: {
           legend: true,
+          scheme: "Cool",
         },
         x: {
           tickFormat: formatDate,
