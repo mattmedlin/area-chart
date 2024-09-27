@@ -63,6 +63,23 @@ const AreaChart = () => {
         });
       });
 
+      const formatVolume = (value) => {
+        const formatWithSuffix = (num, suffix) =>
+          num % 1 === 0
+            ? `$${num.toFixed(0)}${suffix}`
+            : `$${num.toFixed(1)}${suffix}`;
+
+        if (value >= 1e9) {
+          return formatWithSuffix(value / 1e9, "B");
+        } else if (value >= 1e6) {
+          return formatWithSuffix(value / 1e6, "M");
+        } else if (value >= 1e3) {
+          return formatWithSuffix(value / 1e3, "K");
+        } else {
+          return `$${value}`;
+        }
+      };
+
       const chart = Plot.plot({
         marks: [
           Plot.areaY(flattenedData, {
@@ -80,6 +97,7 @@ const AreaChart = () => {
         },
         y: {
           label: "Volume in Millions",
+          tickFormat: formatVolume,
         },
       });
 
